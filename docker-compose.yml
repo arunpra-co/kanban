@@ -8,8 +8,11 @@ services:
       - POSTGRES_DB=postgres
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_HOST=localhost
 
   web:
+    container_name: django
     build:
       context: ./server
       dockerfile: Dockerfile
