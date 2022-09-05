@@ -1,29 +1,41 @@
 version: '3.9'
 services:
-  db:
-    image: postgres
-    volumes:
-      - ./data/db:/var/lib/postgresql/data
-    environment:
-      - POSTGRES_DB=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-      - POSTGRES_PORT=5432
-      - POSTGRES_HOST=localhost
+   db:
+      container_name: postgres
+      image: postgres
+      volumes:
+         - ./data/db:/var/lib/postgresql/data
+      environment:
+         - POSTGRES_PASSWORD=postgres
+         - POSTGRES_DB=postgres
+         - POSTGRES_USER=postgres
+         - POSTGRES_SERVICE=postgres
+         - POSTGRES_PORT=5432
 
-  web:
-    container_name: django
-    build:
-      context: ./server
-      dockerfile: Dockerfile
-    command: python manage.py runserver 0.0.0.0:8000
-    volumes:
-      - ./server:/code
-    ports:
-      - 8000:8000
-    environment:
-      - POSTGRES_NAME=postgres
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=postgres
-    depends_on:
-      - db
+   web:
+      container_name: django
+      build:
+         context: ./server
+         dockerfile: Dockerfile
+      command: python manage.py runserver 0.0.0.0:8000
+      volumes:
+         - ./server:/code
+      ports:
+         - 8000:8000
+
+      depends_on:
+         - db
+
+   client:
+      container_name: client
+      build:
+         context: ./client
+         dockerfile: Dockerfile
+      command: npm run dev
+      volumes:
+         - /app/node_modules
+         - ./client:/app
+      environment:
+         - WATCHPACK_POLLING=true
+      ports:
+         - 3000:3000
