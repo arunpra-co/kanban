@@ -11,20 +11,21 @@ A kanban app built using **vanilla JS** and **Django**.
 	docker-compose up --build
 	```
 2. Migrate your database and create superuser.
-a.  Open shell in django's container (new terminal)
-	```docker
-	docker exec -it django sh
-	```
-b. Run migration scripts
+	a.  Open shell in django's container (new terminal)
+		```docker
+		docker exec -it django sh
+		```
+	b. Run migration scripts
 
-	```python
-	    python manage.py makemigrations kanban
-	   python manage.py migrate
-	```
-c. Seed data into database. (still inside docker container)
-	```python
-	    python manage.py loaddata seed.json
-	```
+		```python
+		    python manage.py makemigrations kanban
+		   python manage.py migrate
+		```
+	c. Seed data into database. (still inside docker container)
+
+		```python
+		    python manage.py loaddata seed.json
+		```
 3. Open Frontend on **localhost:3000**
 4. Backend on **localhost:8000**
 
