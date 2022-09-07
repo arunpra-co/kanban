@@ -4,3 +4,6 @@ data/
 .env
 node_modules/
 dist/
+**/migrations
+
+__pycache__/
