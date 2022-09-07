@@ -16,13 +16,14 @@ a.  Open shell in django's container (new terminal)
 	docker exec -it django sh
 	```
 b. Run migration scripts
+
 	```python
-	#    python manage.py makemigrations kanban
-	#    python manage.py migrate
+	    python manage.py makemigrations kanban
+	   python manage.py migrate
 	```
 c. Seed data into database. (still inside docker container)
 	```python
-	#    python manage.py loaddata seed.json
+	    python manage.py loaddata seed.json
 	```
 3. Open Frontend on **localhost:3000**
 4. Backend on **localhost:8000**
