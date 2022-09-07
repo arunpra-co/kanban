@@ -13,3 +13,28 @@ export const getColumns = async () => {
    const data = await res.json()
    return data
 }
+
+export const addCard = async (id, body) => {
+   const res = await fetch(`http://localhost:8000/cards`, {
+      method: 'POST',
+      headers: {
+         Accept: 'application/json',
+         'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ column: id, body }),
+   })
+   const data = await res.json()
+
+   return data
+}
+
+
+export const removeCard = async (id) => {
+   const res = await fetch(`http://localhost:8000/cards/${id}`, {
+      method: 'DELETE',
+   })
+   const data = await res.json()
+   console.log(data);
+   return data
+}
+
