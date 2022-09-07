@@ -64,6 +64,12 @@ class CardViewSet(viewsets.ViewSet):
     
         if 'index' in request.data:
             card.index = request.data['index']
+
+        if 'body' in request.data:
+            column = Column.objects.get(index=request.data['column'])
+            card.column = column
+            card.title = request.data['body']
+
        
         
         card.save()
