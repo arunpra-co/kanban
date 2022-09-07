@@ -1,6 +1,36 @@
 .w-full {
    width: 100%;
 }
+
 .pointer {
    cursor: pointer !important;
+}
+
+.flex {
+   display: flex;
+
+}
+
+.gap-2 {
+   gap: 8px;
+}
+
+.gap-4 {
+   gap: 24px;
+}
+
+.mt-2 {
+   margin-top: 2px;
+}
+
+.mt-4 {
+   margin-top: 4px;
+}
+
+.justify-between {
+   justify-content: space-between;
+}
+
+.item-center {
+   align-items: center;
 }
