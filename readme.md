@@ -20,6 +20,7 @@ A kanban app built using **vanilla JS** and **Django**.
 	```python
 	#  python manage.py makemigrations kanban
 	#  python manage.py migrate
+	#  python manage.py createsuperuser
 	```
 	c. Seed data into database. (still inside docker container)
 
