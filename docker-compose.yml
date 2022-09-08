@@ -11,20 +11,29 @@ services:
          - POSTGRES_USER=postgres
          - POSTGRES_SERVICE=postgres
          - POSTGRES_PORT=5432
+      healthcheck:
+         test: ['CMD', 'curl', '-f', 'http://172.23.0.2:5432']
+         interval: 30s
+         timeout: 10s
+         retries: 5
 
    web:
       container_name: django
       build:
          context: ./server
          dockerfile: Dockerfile
-      command: python manage.py runserver 0.0.0.0:8000
+      command: sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+
       volumes:
          - ./server:/code
       ports:
          - 8000:8000
-      restart: always
+      restart: on-failure
       depends_on:
          - db
+      links:
+         - db
+
    client:
       container_name: client
       build:
