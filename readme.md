@@ -3,33 +3,28 @@
 A kanban app built using **vanilla JS** and **Django**.
 
 ### Tools required
-- Docker
+
+-  Docker
 
 ### Installation
+
 1. Start docker container
-	```docker
-	>  docker-compose up --build
-	```
-2. Migrate your database and create superuser.
-	a.  Open shell in django's container (new terminal)
-	```docker
-	>  docker exec -it django sh
-	```
-	b. Run migration scripts
+   ```docker
+   >  docker-compose up --build
+   ```
+2. Create superuser (optional).
+   a. Open shell in django's container (new terminal)
 
-	```python
-	#  python manage.py makemigrations kanban
-	#  python manage.py migrate
-	#  python manage.py createsuperuser
-	```
-	c. Seed data into database. (still inside docker container)
+   ```docker
+   >  docker exec -it django sh
+   ```
 
-	```python
-	#  python manage.py loaddata seed.json
-	```
+   b. Run createsuperuser
+
+   ```python
+   #  python manage.py createsuperuser
+   ```
+
 3. Open Frontend on **localhost:3000**
 4. Backend on **localhost:8000/admin**
-4. Swagger API documentation on **localhost:8000/swagger**
-
-
-
+5. Swagger API documentation on **localhost:8000/swagger**
