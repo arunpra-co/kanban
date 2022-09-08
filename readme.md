@@ -13,6 +13,7 @@ A kanban app built using **vanilla JS** and **Django**.
    >  docker-compose up --build
    ```
 2. Create superuser (optional).
+
    a. Open shell in django's container (new terminal)
 
    ```docker
