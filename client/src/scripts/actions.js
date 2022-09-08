@@ -1,13 +1,13 @@
-
 import { addColumn } from './api.js'
 import { createHtml } from './dragndrop.js'
+
 //add new column
 document.getElementById('add-column-button').addEventListener('click', async () => {
-    let title = prompt(`Enter a title for new column`)
-    let data
-    if (title?.length > 0 || body != ' ') {
-        data = await addColumn(title)
-        const html = `
+   let title = prompt(`Enter a title for new column`)
+   let data
+   if (title?.length > 0 || body != ' ') {
+      data = await addColumn(title)
+      const html = `
     <div class="container-wrapper" id=${data.id}>  
        <div class="container-wrapper-title">
        <div class='container-wrapper--flex w-full container-wrapper-title-grp'>
@@ -55,8 +55,10 @@ document.getElementById('add-column-button').addEventListener('click', async () 
        </div>
     </div>
     `
-        document.getElementById('container').remove()
-        createHtml()
-        document.querySelector('.container').insertAdjacentHTML('beforeend', html)
-    }
+      const list = document.getElementById('container')
+      while (list.hasChildNodes()) {
+         list.removeChild(list.firstChild)
+      }
+      createHtml()
+   }
 })
