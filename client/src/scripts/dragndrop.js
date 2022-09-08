@@ -1,11 +1,12 @@
 import Sortable from 'sortablejs'
 
-import { getColumns, getCards, addCard, removeCard } from './api'
+import { getColumns, getCards, addCard, removeCard, removeColumn } from './api'
 import { getNextSiblings, getPrevSiblings } from './utils'
 
-async function createHtml() {
+export async function createHtml() {
    let columns = await getColumns()
    let cards = await getCards()
+
    //sort column wrt index
    columns.sort((a, b) => {
       return a.index - b.index
@@ -13,7 +14,7 @@ async function createHtml() {
 
    for (let column of columns) {
       const html = `
-      <div class="container-wrapper" id=${column.id}>  
+      <div class="container-wrapper" id=${column.id} data-id='remove-column-dom-${column.id}'>  
          <div class="container-wrapper-title">
          <div class='container-wrapper--flex w-full container-wrapper-title-grp'>
             <div class='container-wrapper--flex'>
@@ -35,7 +36,7 @@ async function createHtml() {
 
                <div data-id=${column.id} class='flex  pointer gap-2'>
                   <div class='mt-4'>
-                     <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                     <svg data-id='delete-column-${column.id}' xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="18" height="18" viewBox="0 0 24 24" stroke-width="1.5" stroke="#9e9e9e" fill="none" stroke-linecap="round" stroke-linejoin="round">
                         <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                         <line x1="4" y1="7" x2="20" y2="7" />
                         <line x1="10" y1="11" x2="10" y2="17" />
@@ -74,9 +75,7 @@ async function createHtml() {
 
       document.querySelector('.container').insertAdjacentHTML('beforeend', html)
 
-      //add card in a column
-
-
+      //display cards in a column
       for (let card of sorted_cards) {
          const cardHtml = `
          <li class="container-card flex justify-between items-center" data-id='card-${card.id}' id=${card.id} index=${card.index} column=${card.column}>
@@ -96,8 +95,8 @@ async function createHtml() {
          </li>  
          `
          document.querySelector(`#column-${column.index}`).insertAdjacentHTML('beforeend', cardHtml)
+         //delete card button
          document.querySelector(`[data-id="card-${card.id}"]`).addEventListener('click', async (e) => {
-
             await removeCard(card.id)
             document.querySelector(`[data-id="card-${card.id}"]`).remove()
          })
@@ -141,7 +140,10 @@ async function createHtml() {
       }))
 
       // onClick delete card button
-
+      document.querySelector(`[data-id="delete-column-${column.id}"]`).addEventListener('click', async () => {
+         const data = await removeColumn(column.id)
+         document.querySelector(`[data-id="remove-column-dom-${column.id}"]`).remove()
+      })
 
 
       //cards sortables
@@ -195,7 +197,6 @@ async function createHtml() {
 
          let count2 = event.newIndex
          for (let item of getPrevSiblings(event.item)) {
-            console.log(item)
 
             count2 = count2 - 1
             item.querySelector('.container-column').setAttribute('index', `${count2}`)
@@ -232,9 +233,3 @@ async function createHtml() {
 }
 createHtml()
 
-// window.onload = function () {
-//    // document.getElementById('add-card').addEventListener('click', () => {
-//    //     alert('asdf')
-//    // })z3x
-//    alert(document.getElementById("add-card"));
-// }
