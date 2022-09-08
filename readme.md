@@ -28,6 +28,8 @@ A kanban app built using **vanilla JS** and **Django**.
 	#  python manage.py loaddata seed.json
 	```
 3. Open Frontend on **localhost:3000**
-4. Backend on **localhost:8000**
+4. Backend on **localhost:8000/admin**
+4. Swagger API documentation on **localhost:8000/swagger**
+
 
 
