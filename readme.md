@@ -2,6 +2,10 @@
 
 A kanban app built using **vanilla JS** and **Django**.
 
+# Demo
+
+![Kanban app demo](demo.gif)
+
 ### Tools required
 
 -  Docker
